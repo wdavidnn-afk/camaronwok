@@ -6,79 +6,68 @@ import java.awt.*;
 public class FrmLogin extends JFrame {
 
     public FrmLogin() {
-        // Configuración general de la ventana
-        setTitle("Camarón Wok - Ingresar");
-        setSize(380, 450);
+        setTitle("Camarón Wok - Inicio de Sesión");
+        setSize(400, 420);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en pantalla
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Panel principal con fondo azul pastel
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(157, 195, 230)); // Azul claro suave
-        panel.setLayout(null); // Layout libre
+        panel.setBackground(new Color(157, 195, 230));
+        panel.setLayout(null);
 
-        // Título "Camarón Wok ⌂"
-        JLabel lblTitulo = new JLabel("Camarón Wok ⌂", SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Inicio de usuario 👤", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
-        lblTitulo.setForeground(new Color(30, 30, 30));
-        lblTitulo.setBounds(40, 35, 300, 35);
+        lblTitulo.setForeground(new Color(40, 40, 40));
+        lblTitulo.setBounds(40, 30, 320, 35);
         panel.add(lblTitulo);
 
-        // Línea divisora decorativa
         JSeparator linea = new JSeparator();
-        linea.setBounds(60, 75, 260, 2);
+        linea.setBounds(50, 70, 300, 2);
         linea.setForeground(new Color(50, 50, 50));
         panel.add(linea);
 
-        // Etiqueta Correo electrónico
-        JLabel lblCorreo = new JLabel("Correo electrónico");
-        lblCorreo.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-        lblCorreo.setForeground(new Color(100, 100, 100));
-        lblCorreo.setBounds(45, 110, 200, 20);
-        panel.add(lblCorreo);
+        JLabel lblUser = new JLabel("Usuario:");
+        lblUser.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        lblUser.setBounds(50, 95, 300, 25);
+        panel.add(lblUser);
 
-        // Campo de texto para Correo
-        JTextField txtCorreo = new JTextField();
-        txtCorreo.setBounds(45, 132, 290, 35);
-        txtCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        txtCorreo.setBackground(Color.WHITE);
-        txtCorreo.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 60), 1));
-        panel.add(txtCorreo);
+        JTextField txtUser = new JTextField();
+        txtUser.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+        txtUser.setBounds(50, 125, 300, 35);
+        txtUser.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1));
+        panel.add(txtUser);
 
-        // Etiqueta Contraseña
-        JLabel lblClave = new JLabel("Contraseña");
-        lblClave.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-        lblClave.setForeground(new Color(100, 100, 100));
-        lblClave.setBounds(45, 185, 200, 20);
-        panel.add(lblClave);
+        JLabel lblPass = new JLabel("Contraseña:");
+        lblPass.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        lblPass.setBounds(50, 175, 300, 25);
+        panel.add(lblPass);
 
-        // Campo para Contraseña
-        JPasswordField txtClave = new JPasswordField();
-        txtClave.setBounds(45, 207, 290, 35);
-        txtClave.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        txtClave.setBackground(Color.WHITE);
-        txtClave.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 60), 1));
-        panel.add(txtClave);
+        JPasswordField txtPass = new JPasswordField();
+        txtPass.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+        txtPass.setBounds(50, 205, 300, 35);
+        txtPass.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1));
+        panel.add(txtPass);
 
-        // Botón "Ingresar" cian/turquesa brillante
         JButton btnIngresar = new JButton("Ingresar");
-        btnIngresar.setBounds(120, 275, 140, 38);
-        btnIngresar.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-        btnIngresar.setBackground(new Color(0, 255, 255)); // Cian
+        btnIngresar.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+        btnIngresar.setBackground(new Color(0, 255, 255));
         btnIngresar.setForeground(Color.BLACK);
         btnIngresar.setFocusPainted(false);
-        btnIngresar.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 40), 1));
-        panel.add(btnIngresar);
+        btnIngresar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        btnIngresar.setBounds(110, 280, 180, 42);
 
-        // Agregar el panel a la ventana
+        // CONEXIÓN: Abre el menú principal y cierra el login
+        btnIngresar.addActionListener(e -> {
+            new FrmInicioUsuario().setVisible(true);
+            this.dispose();
+        });
+
+        panel.add(btnIngresar);
         add(panel);
     }
 
     public static void main(String[] args) {
-        // Ejecución directa de la ventana
-        SwingUtilities.invokeLater(() -> {
-            new FrmLogin().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new FrmLogin().setVisible(true));
     }
 }

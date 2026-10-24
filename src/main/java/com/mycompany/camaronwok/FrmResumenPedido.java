@@ -7,45 +7,37 @@ import java.awt.*;
 public class FrmResumenPedido extends JFrame {
 
     public FrmResumenPedido() {
-        // Configuración general de la ventana
         setTitle("Camarón Wok - Tomar Pedido (Resumen)");
-        setSize(480, 520);
+        setSize(480, 560); // Ajustamos ligeramente la altura para acomodar el botón
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en pantalla
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Panel principal con fondo gris suave
         JPanel panel = new JPanel();
         panel.setBackground(new Color(220, 220, 220));
         panel.setLayout(null);
 
-        // Título "Tomar pedido ✎"
         JLabel lblTitulo = new JLabel("Tomar pedido ✎", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         lblTitulo.setForeground(new Color(30, 30, 30));
         lblTitulo.setBounds(80, 20, 320, 35);
         panel.add(lblTitulo);
 
-        // Línea divisora decorativa
         JSeparator linea = new JSeparator();
         linea.setBounds(90, 58, 300, 2);
         linea.setForeground(new Color(60, 60, 60));
         panel.add(linea);
 
-        // Subtítulo de Mesa y Cliente
         JLabel lblMesa = new JLabel("Mesa 1 - cliente: Paula", SwingConstants.CENTER);
         lblMesa.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
         lblMesa.setOpaque(true);
         lblMesa.setBackground(Color.WHITE);
-        lblMesa.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 2)); // Borde cian
+        lblMesa.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 2));
         lblMesa.setBounds(70, 70, 340, 30);
         panel.add(lblMesa);
 
-        // Tabla de Pedido (Completamente vacía con una fila en blanco)
         String[] columnas = {"Producto", "valor", "cantidad", "actualizar"};
-        Object[][] datos = {
-            {"", "", "", ""}
-        };
+        Object[][] datos = {{"", "", "", ""}};
 
         DefaultTableModel model = new DefaultTableModel(datos, columnas);
         JTable tabla = new JTable(model);
@@ -55,18 +47,22 @@ public class FrmResumenPedido extends JFrame {
         tabla.getTableHeader().setBackground(new Color(200, 200, 200));
 
         JScrollPane scrollTabla = new JScrollPane(tabla);
-        scrollTabla.setBounds(20, 115, 435, 220);
+        scrollTabla.setBounds(20, 115, 435, 180);
         panel.add(scrollTabla);
 
-        // Botón "Enviar pedido a cocina" (Deshabilitado / Apagado)
+        // Botón "Enviar pedido a cocina" (Verde éxito)
         JButton btnEnviar = new JButton("Enviar pedido a cocina");
-        btnEnviar.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-        btnEnviar.setBounds(30, 370, 220, 42);
-        btnEnviar.setEnabled(false); // Deshabilitar botón
-        btnEnviar.setBackground(new Color(180, 180, 180)); // Fondo gris deshabilitado
-        btnEnviar.setForeground(new Color(100, 100, 100));
+        btnEnviar.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+        btnEnviar.setBounds(30, 325, 200, 42);
+        btnEnviar.setBackground(new Color(46, 139, 87));
+        btnEnviar.setForeground(Color.WHITE);
         btnEnviar.setFocusPainted(false);
-        btnEnviar.setBorder(BorderFactory.createLineBorder(new Color(120, 120, 120), 1));
+        btnEnviar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        
+        btnEnviar.addActionListener(e -> {
+            new FrmPedidosCocina().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnEnviar);
 
         // Campo Sub total en 0
@@ -75,15 +71,29 @@ public class FrmResumenPedido extends JFrame {
         lblSubtotal.setOpaque(true);
         lblSubtotal.setBackground(Color.WHITE);
         lblSubtotal.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        lblSubtotal.setBounds(265, 370, 180, 42);
+        lblSubtotal.setBounds(250, 325, 190, 42);
         panel.add(lblSubtotal);
 
-        // Agregar panel principal a la ventana
+        // --- NUEVO BOTÓN DE REGRESO (Rojo suave) ---
+        JButton btnVolver = new JButton("Volver al menú de platos");
+        btnVolver.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+        btnVolver.setBackground(new Color(240, 140, 140)); // Rojo suave
+        btnVolver.setForeground(Color.BLACK);
+        btnVolver.setFocusPainted(false);
+        btnVolver.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        btnVolver.setBounds(140, 390, 200, 38);
+        
+        // Conexión: Regresa a FrmTomarPedido
+        btnVolver.addActionListener(e -> {
+            new FrmTomarPedido().setVisible(true);
+            this.dispose();
+        });
+        panel.add(btnVolver);
+
         add(panel);
     }
 
     public static void main(String[] args) {
-        // Ejecución directa de la ventana
         SwingUtilities.invokeLater(() -> {
             new FrmResumenPedido().setVisible(true);
         });

@@ -7,41 +7,35 @@ import java.awt.*;
 public class FrmFactura extends JFrame {
 
     public FrmFactura() {
-        // Configuración general de la ventana
         setTitle("Camarón Wok - Factura");
         setSize(480, 560);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en pantalla
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Panel principal con fondo gris suave (como el boceto)
         JPanel panel = new JPanel();
         panel.setBackground(new Color(220, 220, 220));
         panel.setLayout(null);
 
-        // Título principal "Factura"
         JLabel lblTitulo = new JLabel("Factura", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         lblTitulo.setForeground(new Color(30, 30, 30));
         lblTitulo.setBounds(80, 20, 320, 35);
         panel.add(lblTitulo);
 
-        // Línea divisora
         JSeparator linea = new JSeparator();
         linea.setBounds(140, 58, 200, 2);
         linea.setForeground(new Color(60, 60, 60));
         panel.add(linea);
 
-        // Subtítulo Mesa, Pedido y Cliente
         JLabel lblMesa = new JLabel("Mesa 2 - pedido #150 - Anderson", SwingConstants.CENTER);
         lblMesa.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
         lblMesa.setOpaque(true);
         lblMesa.setBackground(Color.WHITE);
-        lblMesa.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 2)); // Borde cian
+        lblMesa.setBorder(BorderFactory.createLineBorder(new Color(0, 255, 255), 2));
         lblMesa.setBounds(60, 70, 360, 30);
         panel.add(lblMesa);
 
-        // Tabla de Productos de la Factura
         String[] columnas = {"Producto", "cantidad", "valor"};
         Object[][] datos = {
             {"Dumplings de Cerdo", "1", "18.000"},
@@ -61,7 +55,6 @@ public class FrmFactura extends JFrame {
         scrollTabla.setBounds(30, 115, 420, 150);
         panel.add(scrollTabla);
 
-        // Cuadro de Resumen de Totales (Subtotal, IVA, Imp. al consumo y TOTAL)
         JPanel panelTotales = new JPanel();
         panelTotales.setLayout(new GridLayout(4, 1, 2, 2));
         panelTotales.setBackground(Color.WHITE);
@@ -77,7 +70,7 @@ public class FrmFactura extends JFrame {
         JLabel lblImpuesto = new JLabel("Imp. al consumo: 11.680  ", SwingConstants.RIGHT);
         lblImpuesto.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 
-        JLabel lblTotal = new JLabel("TOTA = 185.420  ", SwingConstants.RIGHT);
+        JLabel lblTotal = new JLabel("TOTAL = 185.420  ", SwingConstants.RIGHT);
         lblTotal.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
 
         panelTotales.add(lblSubtotal);
@@ -86,34 +79,40 @@ public class FrmFactura extends JFrame {
         panelTotales.add(lblTotal);
         panel.add(panelTotales);
 
-        // Botón "Volver a Mesas pendientes" (Rojo suave)
+        // Botón "Volver a Mesas pendientes" -> CONEXIÓN: Regresa al menú principal
         JButton btnVolver = new JButton("Volver a Mesas pendientes");
         btnVolver.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
-        btnVolver.setBackground(new Color(240, 140, 140)); // Rojo suave
+        btnVolver.setBackground(new Color(240, 140, 140));
         btnVolver.setForeground(Color.BLACK);
         btnVolver.setFocusPainted(false);
         btnVolver.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         btnVolver.setBounds(30, 285, 185, 45);
+        btnVolver.addActionListener(e -> {
+            new FrmInicioUsuario().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnVolver);
 
-        // Botón "Pago exitoso" (Verde medio/oscuro aprobado)
+        // Botón "Pago exitoso" -> CONEXIÓN: Muestra mensaje de éxito y regresa al menú
         JButton btnPagoExitoso = new JButton("Pago exitoso");
         btnPagoExitoso.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
-        btnPagoExitoso.setBackground(new Color(46, 139, 87)); // Verde aprobado (Sea Green)
-        btnPagoExitoso.setForeground(Color.WHITE); // Texto blanco para máximo contraste
+        btnPagoExitoso.setBackground(new Color(46, 139, 87));
+        btnPagoExitoso.setForeground(Color.WHITE);
         btnPagoExitoso.setFocusPainted(false);
         btnPagoExitoso.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         btnPagoExitoso.setBounds(45, 345, 155, 42);
+        
+        btnPagoExitoso.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "¡Pago procesado con éxito!");
+            new FrmInicioUsuario().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnPagoExitoso);
 
-        // Agregar panel principal a la ventana
         add(panel);
     }
 
     public static void main(String[] args) {
-        // Ejecución directa de la ventana
-        SwingUtilities.invokeLater(() -> {
-            new FrmFactura().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new FrmFactura().setVisible(true));
     }
 }

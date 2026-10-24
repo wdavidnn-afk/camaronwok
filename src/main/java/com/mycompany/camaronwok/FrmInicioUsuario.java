@@ -6,71 +6,82 @@ import java.awt.*;
 public class FrmInicioUsuario extends JFrame {
 
     public FrmInicioUsuario() {
-        // Configuración general de la ventana
-        setTitle("Camarón Wok - Inicio de Usuario");
-        setSize(420, 380);
+        setTitle("Camarón Wok - Menú Principal");
+        setSize(480, 480);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en pantalla
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Panel principal con fondo azul pastel
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(157, 195, 230)); // Azul suave pastel
+        panel.setBackground(new Color(157, 195, 230));
         panel.setLayout(null);
 
-        // Título "Inicio de usuario 👤"
-        JLabel lblTitulo = new JLabel("Inicio de usuario 👤", SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Camarón Wok", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         lblTitulo.setForeground(new Color(30, 30, 30));
-        lblTitulo.setBounds(50, 25, 300, 35);
+        lblTitulo.setBounds(80, 20, 320, 35);
         panel.add(lblTitulo);
 
-        // Línea divisora decorativa
         JSeparator linea = new JSeparator();
-        linea.setBounds(60, 65, 280, 2);
-        linea.setForeground(new Color(50, 50, 50));
+        linea.setBounds(90, 58, 300, 2);
+        linea.setForeground(new Color(60, 60, 60));
         panel.add(linea);
 
-        // Menú de Opciones (Botones con fondo blanco neutro)
-        int anchoBoton = 220;
-        int altoBoton = 40;
-        int xPos = (420 - anchoBoton) / 2; // Centrado horizontalmente
+        // 1. Ir a Estado de Mesas
+        JButton btnMesas = new JButton("1. Estado de Mesas");
+        btnMesas.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        btnMesas.setBounds(100, 90, 280, 40);
+        btnMesas.addActionListener(e -> {
+            new FrmEstadoMesas().setVisible(true);
+            this.dispose();
+        });
+        panel.add(btnMesas);
 
-        JButton btnEstadoMesas = crearBotonMenu("Estado de mesas");
-        btnEstadoMesas.setBounds(xPos, 95, anchoBoton, altoBoton);
-        panel.add(btnEstadoMesas);
-
-        JButton btnTomarPedido = crearBotonMenu("Tomar pedido");
-        btnTomarPedido.setBounds(xPos, 140, anchoBoton, altoBoton);
+        // 2. Ir a Tomar Pedido
+        JButton btnTomarPedido = new JButton("2. Tomar Pedido");
+        btnTomarPedido.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        btnTomarPedido.setBounds(100, 150, 280, 40);
+        btnTomarPedido.addActionListener(e -> {
+            new FrmTomarPedido().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnTomarPedido);
 
-        JButton btnCocina = crearBotonMenu("Cocina");
-        btnCocina.setBounds(xPos, 185, anchoBoton, altoBoton);
+        // 3. Ir a Pedidos en Cocina
+        JButton btnCocina = new JButton("3. Pedidos en Cocina");
+        btnCocina.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        btnCocina.setBounds(100, 210, 280, 40);
+        btnCocina.addActionListener(e -> {
+            new FrmPedidosCocina().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnCocina);
 
-        JButton btnCaja = crearBotonMenu("Caja");
-        btnCaja.setBounds(xPos, 230, anchoBoton, altoBoton);
+        // 4. Ir a Caja / Factura
+        JButton btnCaja = new JButton("4. Caja y Facturación");
+        btnCaja.setFont(new Font("Comic Sans MS", Font.BOLD, 14));
+        btnCaja.setBounds(100, 270, 280, 40);
+        btnCaja.addActionListener(e -> {
+            new FrmCaja().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnCaja);
 
-        // Agregar panel a la ventana
+        // Botón de Cerrar Sesión (Regresa al Login)
+        JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+        btnCerrarSesion.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+        btnCerrarSesion.setBackground(new Color(240, 140, 140));
+        btnCerrarSesion.setBounds(160, 350, 160, 35);
+        btnCerrarSesion.addActionListener(e -> {
+            new FrmLogin().setVisible(true);
+            this.dispose();
+        });
+        panel.add(btnCerrarSesion);
+
         add(panel);
     }
 
-    // Método auxiliar para dar formato uniforme y limpio a los botones
-    private JButton crearBotonMenu(String texto) {
-        JButton btn = new JButton(texto);
-        btn.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-        btn.setBackground(Color.WHITE); // Fondo blanco limpio sin resaltar ninguno
-        btn.setForeground(new Color(30, 30, 30));
-        btn.setFocusPainted(false);
-        btn.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 60), 1));
-        return btn;
-    }
-
     public static void main(String[] args) {
-        // Ejecución directa de la ventana
-        SwingUtilities.invokeLater(() -> {
-            new FrmInicioUsuario().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new FrmInicioUsuario().setVisible(true));
     }
 }

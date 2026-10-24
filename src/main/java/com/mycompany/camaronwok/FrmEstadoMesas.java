@@ -18,40 +18,61 @@ public class FrmEstadoMesas extends JFrame {
         panel.setBackground(new Color(157, 195, 230)); // Azul suave pastel
         panel.setLayout(null);
 
-        // Título "Estado de mesas 👤"
-        JLabel lblTitulo = new JLabel("Estado de mesas 👤", SwingConstants.CENTER);
+        // Título "Estado de mesas"
+        JLabel lblTitulo = new JLabel("Estado de mesas", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
         lblTitulo.setForeground(new Color(30, 30, 30));
-        lblTitulo.setBounds(70, 25, 320, 35);
+        lblTitulo.setBounds(70, 20, 320, 35);
         panel.add(lblTitulo);
 
         // Línea divisora decorativa
         JSeparator linea = new JSeparator();
-        linea.setBounds(80, 65, 300, 2);
+        linea.setBounds(80, 60, 300, 2);
         linea.setForeground(new Color(50, 50, 50));
         panel.add(linea);
 
         // Grid de Mesas (Todas Disponibles - Verde Claro)
         // Fila 1
-        panel.add(crearBotonMesa("Mesa 1", "Cap. 4", "Disponible", 50, 95));
-        panel.add(crearBotonMesa("Mesa 2", "Cap. 2", "Disponible", 240, 95));
+        panel.add(crearBotonMesa("Mesa 1", "Cap. 4", "Disponible", 50, 85));
+        panel.add(crearBotonMesa("Mesa 2", "Cap. 2", "Disponible", 240, 85));
 
         // Fila 2
-        panel.add(crearBotonMesa("Mesa 3", "Cap. 6", "Disponible", 50, 215));
-        panel.add(crearBotonMesa("Mesa 4", "Cap. 2", "Disponible", 240, 215));
+        panel.add(crearBotonMesa("Mesa 3", "Cap. 6", "Disponible", 50, 195));
+        panel.add(crearBotonMesa("Mesa 4", "Cap. 2", "Disponible", 240, 195));
 
         // Fila 3
-        panel.add(crearBotonMesa("Mesa 5", "Cap. 8", "Disponible", 50, 335));
+        panel.add(crearBotonMesa("Mesa 5", "Cap. 8", "Disponible", 50, 305));
 
         // Botón "+ Nuevo Pedido" (Verde Oscuro)
         JButton btnNuevoPedido = new JButton("<html><center><b>+ Nuevo<br>Pedido</b></center></html>");
-        btnNuevoPedido.setBounds(240, 335, 160, 100);
+        btnNuevoPedido.setBounds(240, 305, 160, 100);
         btnNuevoPedido.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
         btnNuevoPedido.setBackground(new Color(40, 120, 40)); // Verde oscuro
         btnNuevoPedido.setForeground(Color.WHITE);
         btnNuevoPedido.setFocusPainted(false);
         btnNuevoPedido.setBorder(BorderFactory.createLineBorder(new Color(30, 30, 30), 1));
+        
+        btnNuevoPedido.addActionListener(e -> {
+            new FrmTomarPedido().setVisible(true);
+            this.dispose();
+        });
         panel.add(btnNuevoPedido);
+
+        // --- NUEVO BOTÓN DE REGRESO (En la zona marcada con la X roja) ---
+        JButton btnVolver = new JButton("Volver al Menú");
+        btnVolver.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+        btnVolver.setBackground(new Color(240, 140, 140)); // Rojo suave
+        btnVolver.setForeground(Color.BLACK);
+        btnVolver.setFocusPainted(false);
+        btnVolver.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        btnVolver.setBounds(155, 420, 150, 38);
+        
+        // Conexión: Regresa al menú principal (FrmInicioUsuario)
+        btnVolver.addActionListener(e -> {
+            new FrmInicioUsuario().setVisible(true);
+            this.dispose();
+        });
+        panel.add(btnVolver);
 
         // Agregar panel a la ventana
         add(panel);
@@ -69,6 +90,12 @@ public class FrmEstadoMesas extends JFrame {
         btn.setForeground(new Color(30, 30, 30));
         btn.setFocusPainted(false);
         btn.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1));
+        
+        // Al hacer clic en cualquier mesa, abre el tomado de pedido
+        btn.addActionListener(e -> {
+            new FrmTomarPedido().setVisible(true);
+            this.dispose();
+        });
         return btn;
     }
 
