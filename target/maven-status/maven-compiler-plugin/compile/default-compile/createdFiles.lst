@@ -2,9 +2,13 @@ com\mycompany\camaronwok\Camaronwok.class
 com\mycompany\camaronwok\FrmInicioUsuario.class
 com\mycompany\camaronwok\FrmTomarPedido.class
 com\mycompany\camaronwok\FrmEstadoMesas.class
+com\mycompany\camaronwok\PedidoCompartido$ItemPedido.class
 com\mycompany\camaronwok\FrmFactura.class
 com\mycompany\camaronwok\FrmResumenPedido.class
 com\mycompany\camaronwok\FrmPedidosCocina.class
+com\mycompany\camaronwok\FrmTomarPedido$BotonEditor$1.class
 com\mycompany\camaronwok\FrmCaja.class
 com\mycompany\camaronwok\FrmLogin.class
-com\mycompany\camaronwok\FrmTomarPedido$1.class
+com\mycompany\camaronwok\FrmTomarPedido$BotonEditor.class
+com\mycompany\camaronwok\FrmTomarPedido$BotonRender.class
+com\mycompany\camaronwok\PedidoCompartido.class

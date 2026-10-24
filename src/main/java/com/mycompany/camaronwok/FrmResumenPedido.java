@@ -8,7 +8,7 @@ public class FrmResumenPedido extends JFrame {
 
     public FrmResumenPedido() {
         setTitle("Camarón Wok - Tomar Pedido (Resumen)");
-        setSize(480, 560); // Ajustamos ligeramente la altura para acomodar el botón
+        setSize(480, 560);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -36,13 +36,18 @@ public class FrmResumenPedido extends JFrame {
         lblMesa.setBounds(70, 70, 340, 30);
         panel.add(lblMesa);
 
+        // Columnas solicitadas: Producto, valor, cantidad, actualizar
         String[] columnas = {"Producto", "valor", "cantidad", "actualizar"};
-        Object[][] datos = {{"", "", "", ""}};
+        DefaultTableModel model = new DefaultTableModel(new Object[][]{}, columnas);
 
-        DefaultTableModel model = new DefaultTableModel(datos, columnas);
+        // Cargar los datos desde el almacenamiento compartido
+        for (PedidoCompartido.ItemPedido item : PedidoCompartido.listaItems) {
+            model.addRow(new Object[]{item.producto, item.valor, item.cantidad, "actualizar"});
+        }
+
         JTable tabla = new JTable(model);
-        tabla.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-        tabla.setRowHeight(40);
+        tabla.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+        tabla.setRowHeight(35);
         tabla.getTableHeader().setFont(new Font("Comic Sans MS", Font.BOLD, 13));
         tabla.getTableHeader().setBackground(new Color(200, 200, 200));
 
@@ -65,8 +70,8 @@ public class FrmResumenPedido extends JFrame {
         });
         panel.add(btnEnviar);
 
-        // Campo Sub total en 0
-        JLabel lblSubtotal = new JLabel("Sub total: 0", SwingConstants.CENTER);
+        // Campo Sub total dinámico con el valor real
+        JLabel lblSubtotal = new JLabel(String.format("Sub total: %,.0f", PedidoCompartido.subtotalTotal), SwingConstants.CENTER);
         lblSubtotal.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
         lblSubtotal.setOpaque(true);
         lblSubtotal.setBackground(Color.WHITE);
@@ -74,16 +79,15 @@ public class FrmResumenPedido extends JFrame {
         lblSubtotal.setBounds(250, 325, 190, 42);
         panel.add(lblSubtotal);
 
-        // --- NUEVO BOTÓN DE REGRESO (Rojo suave) ---
+        // Botón de regreso al menú de platos
         JButton btnVolver = new JButton("Volver al menú de platos");
         btnVolver.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
-        btnVolver.setBackground(new Color(240, 140, 140)); // Rojo suave
+        btnVolver.setBackground(new Color(240, 140, 140));
         btnVolver.setForeground(Color.BLACK);
         btnVolver.setFocusPainted(false);
         btnVolver.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         btnVolver.setBounds(140, 390, 200, 38);
         
-        // Conexión: Regresa a FrmTomarPedido
         btnVolver.addActionListener(e -> {
             new FrmTomarPedido().setVisible(true);
             this.dispose();
